@@ -1,0 +1,36 @@
+version: '3.6'
+
+services:
+  build-android-arm64:
+    image: build-android-arm64
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PACKAGE_ARCH: arm64
+        ANDROID_ABI: arm64-v8a
+        ANDROID_NATIVE_API_LEVEL: '29'
+        ANDROID_SDK_BUILD_TOOLS_VERSION: '34.0.0'
+        CROSS_TRIPLE: aarch64-linux-android
+        CROSS_TRIPLE_UNDERSCORED: aarch64_linux_android
+        CROSS_TRIPLE_UPPER: AARCH64_LINUX_ANDROID
+        DEBIAN_CROSS_TRIPLE: aarch64-linux-gnu
+    volumes:
+      - $PWD:/work
+
+  build-android-x64:
+    image: build-android-x64
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PACKAGE_ARCH: amd64
+        ANDROID_ABI: x86_64
+        ANDROID_NATIVE_API_LEVEL: '29'
+        ANDROID_SDK_BUILD_TOOLS_VERSION: '34.0.0'
+        CROSS_TRIPLE: x86_64-linux-android
+        CROSS_TRIPLE_UNDERSCORED: x86_64_linux_android
+        CROSS_TRIPLE_UPPER: X86_64_LINUX_ANDROID
+        DEBIAN_CROSS_TRIPLE: x86_64-linux-gnu
+    volumes:
+      - $PWD:/work
